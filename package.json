@@ -1,0 +1,36 @@
+{
+  "name": "web-engineer-exercise-interview",
+  "version": "1.0.0",
+  "description": "Full-stack / Front-end Web Engineering exercise",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm start",
+    "test": "mocha --recursive --timeout 20000",
+    "build": "webpack",
+    "prestart": "npm run build",
+    "start": "webpack-dev-server --open"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-polyfill": "^6.26.0",
+    "mocha": "^5.2.0",
+    "puppeteer": "^1.8.0",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+  }
+}
