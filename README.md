@@ -1,6 +1,7 @@
 - [Building a developer portal](#building-a-developer-portal)
-  - [What we are looking for](#what-we-are-looking-for)
+  - [Missing features](#missing-features)
   - [Minimum requirements](#minimum-requirements)
+  - [Running the app](#running-the-app)
 - [API](#api)
   - [Authentication](#authentication)
   - [Obtaining an access token](#obtaining-an-access-token)
