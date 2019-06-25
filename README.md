@@ -9,6 +9,7 @@
   - [Example calls and data model](#example-calls-and-data-model)
 
 # Building a developer portal
+
 Your task is to prioritise and resolve [the list of missing features](#missing-features) that are required to finish off the Developer portal application.
 
 The unfinished application has been built with the same technologies that we use at Monzo to build our internal tooling. We are using [React](https://reactjs.org/) to build our components and [Redux](https://redux.js.org/) for the state management. The code is bundled using [Webpack](https://webpack.js.org) and transformed using [Babel](https://babeljs.io/).
@@ -18,6 +19,7 @@ We will use the exercise as a basis to discuss some aspects of web frontend deve
 Please capture any features that you don’t have time to implement and / or any ways you would improve the app given more time.
 
 ## Missing features
+
 - Redirecting logged out users to the sign in form when they try to navigate to one of the routes
 - Style up the application
 - Error messaging on the form when submitted with incorrect data
@@ -33,6 +35,7 @@ Please capture any features that you don’t have time to implement and / or any
 - Appropriate meta data for each route e.g. page title, page meta data
 
 ## Minimum requirements:
+
 - The user can log into the portal using email and password
 - The user should go through the authentication process again when the token has expired
 - The user can list and update their “apps”
@@ -40,22 +43,28 @@ Please capture any features that you don’t have time to implement and / or any
 
 # Running the app
 
-Clone the repository
+**Clone the repository**
+
 `git clone {REPOSITORY}`
 
-Install the required NPM packages:
+**Install the required NPM packages**:
+
 `npm install`
 
-Start the application:
+**Start the application**:
+
 `npm start`
 
-Test the application:
-`npm test`
+**Test the application**:
+
+You will need to start the application first, then run `npm test` in a new terminal tab.
 
 # API
+
 We've put up a mock API server at https://guarded-thicket-22918.herokuapp.com/.
 
 ## Authentication
+
 All API requests (except for logins) are authenticated by passing an access token in via the `"Authorization"` HTTP header. If the token is missing, invalid or expired the API returns `401 Unauthorized`.
 
 Access tokens expire after a default time of 30m. You can override this during login.
@@ -63,6 +72,7 @@ Access tokens expire after a default time of 30m. You can override this during l
 You can check whether or not an access token is valid and not expired by hitting `GET /`.
 
 ## Obtaining an access token
+
 You obtain an access token by making JSON-encoded POST request to `/login` with the following properties:
 
 - email: You can put whatever you want here. Each email gets its own little database of mock data.
@@ -70,6 +80,7 @@ You obtain an access token by making JSON-encoded POST request to `/login` with 
 - expiry: Optionally, you can pass in an expiration timespan in rauchg/ms format (e.g. "60s", "10h", etc). This is useful for testing your re-authentication code.
 
 For example:
+
 ```
 # Obtain an access token
 curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com","password":"hunter2"}' https://guarded-thicket-22918.herokuapp.com/login
@@ -102,6 +113,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com
 ```
 
 ## Apps and their users
+
 The developer portal deals with two domain models: `apps` and their `users`. The API has three endpoints:
 
 ```
@@ -155,4 +167,3 @@ curl -H "Authorization: $token" https://guarded-thicket-22918.herokuapp.com/apps
 # List users of an app (second page of 25 users)
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vbmRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNDU0NTM1MDg4LCJleHAiOjE0NTQ1MzY4ODh9.7ehzJgS_OojT37j076I05l1ZNKc62AKOpL-aeqR0GkM" https://guarded-thicket-22918.herokuapp.com/apps/ebdb9723-39ba-4157-9d36-aa483581aa13/users?offset=25
 ```
-
