@@ -26,11 +26,11 @@ Please capture any features that you don’t have time to implement and / or any
 - Make sure all functionality is covered by an E2E test and those tests pass
 - Make the app more performant
 - Convert the components into re-usable components
-- Implement coding standards e.g. Eslint, Prettier
+- Implement coding standards e.g. ESLint, Prettier
 - Add type safety to the application e.g. Flow / Typescript
-- A11Y best practices
-- Update any out of date packages
-- Appropriate meta data for each route e.g. page title, page meta data
+- Web accessibility best practices
+- Update any out-of-date packages
+- Appropriate metadata for each route e.g. page title, page metadata
 
 ## Minimum requirements:
 - The user can log into the portal using email and password
@@ -47,10 +47,10 @@ Install the required NPM packages:
 `npm install`
 
 Start the application:
-`npm start`
+`npm run start`
 
 Test the application:
-`npm test`
+`npm run test`
 
 # API
 We've put up a mock API server at https://guarded-thicket-22918.herokuapp.com/.
@@ -60,14 +60,14 @@ All API requests (except for logins) are authenticated by passing an access toke
 
 Access tokens expire after a default time of 30m. You can override this during login.
 
-You can check whether or not an access token is valid and not expired by hitting `GET /`.
+You can check whether or not an access token is valid and not expired by hitting `GET /` with the `Authorization` header set.
 
 ## Obtaining an access token
-You obtain an access token by making JSON-encoded POST request to `/login` with the following properties:
+You obtain an access token by making an `application/JSON` POST request to `/login` with the following properties in the body:
 
-- email: You can put whatever you want here. Each email gets its own little database of mock data.
-- password: If the password is `hunter2`, the login will succeed. Otherwise it will fail with status 401.
-- expiry: Optionally, you can pass in an expiration timespan in rauchg/ms format (e.g. "60s", "10h", etc). This is useful for testing your re-authentication code.
+- `email`: You can put whatever you want here. Each email gets its own little database of mock data.
+- `password`: If the password is `hunter2`, the login will succeed. Otherwise it will fail with status 401.
+- `expiry`: Optionally, you can pass in an expiration timespan in rauchg/ms format (e.g. `60s`, `10h`, etc). This is useful for testing your re-authentication code.
 
 For example:
 ```
