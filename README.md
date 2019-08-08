@@ -90,7 +90,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com
 
 # Test your access token
 curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vbmRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNDU0NTMzMDc4LCJleHAiOjE0NTQ1MzQ4Nzh9.9nnNyJaR-oZeOjlGFUrimSuLzRUJ3kfzuxbQwTuODBg" https://guarded-thicket-22918.herokuapp.com/
-# Status: 401
+# Status: 200
 # {
 #   "message": "The API is alive and your access token is valid :)",
 #   "token": {
@@ -102,7 +102,7 @@ curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vbmR
 
 # Login failure
 curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com","password":"not hunter2"}' https://guarded-thicket-22918.herokuapp.com/login
-# Status: 200
+# Status: 401
 # {
 #   "error": "Cannot log in with the given email and password."
 # }
