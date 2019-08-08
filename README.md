@@ -57,7 +57,11 @@ Please capture any features that you don’t have time to implement and / or any
 
 **Test the application**:
 
-You will need to start the application first, then run `npm test` in a new terminal tab.
+You will need to start the application first, then run `npm test` in a new terminal tab. This is because [Puppeteer](https://pptr.dev/) needs a running application to test against.
+
+When running the tests, you should get one failing test, one passing test and a test that needs to written.
+
+![Failing tests](./failing-test-output.png)
 
 # API
 
@@ -72,6 +76,7 @@ Access tokens expire after a default time of 30m. You can override this during l
 You can check whether or not an access token is valid and not expired by hitting `GET /` with the `Authorization` header set.
 
 ## Obtaining an access token
+
 You obtain an access token by making an `application/JSON` POST request to `/login` with the following properties in the body:
 
 - `email`: You can put whatever you want here. Each email gets its own little database of mock data.
