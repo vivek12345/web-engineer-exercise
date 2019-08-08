@@ -1,5 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { fetchUsers } from "../actions/users";
 
 function buildPagination(id, page = 0) {
   return (
@@ -14,7 +17,7 @@ function buildPagination(id, page = 0) {
   );
 }
 
-export default function Users({ error, items, fetchUsers, appId }) {
+function Users({ error, items, fetchUsers, appId }) {
   if (!items || !items.length) {
     fetchUsers();
     return <div>LOADING USERS...</div>;
@@ -40,3 +43,23 @@ export default function Users({ error, items, fetchUsers, appId }) {
     </div>
   );
 }
+
+function mapStateToProps(state, router) {
+  const { items, error } = state.users;
+  const appId = router.match.params.id;
+
+  return { error, items, appId };
+}
+
+function mapDispatchToProps(dispatch, router) {
+  return {
+    fetchUsers: () => dispatch(fetchUsers(router.match.params.id))
+  };
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Users)
+);

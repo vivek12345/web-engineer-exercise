@@ -24,22 +24,6 @@ export function getAccessToken() {
   return window.localStorage.getItem(TOKEN_NAME);
 }
 
-export async function isValidToken() {
-  const token = getAccessToken();
-
-  if (!token) return false;
-
-  const validTokenRequest = await fetch(
-    "https://guarded-thicket-22918.herokuapp.com/",
-    {
-      headers: { Authorization: token }
-    }
-  );
-  const { error } = await response.json();
-
-  return !error;
-}
-
 export function authenticate(email, password) {
   return async function(dispatch) {
     dispatch(authenticationRequesting());

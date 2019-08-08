@@ -5,9 +5,9 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import thunk from "redux-thunk";
 
-import SignIn from "./containers/sign-in.jsx";
-import Apps from "./containers/Apps.jsx";
-import Users from "./containers/Users.jsx";
+import SignIn from "./connected-components/sign-in.jsx";
+import Apps from "./connected-components/Apps.jsx";
+import Users from "./connected-components/Users.jsx";
 
 import rootReducer from "./reducers/root-reducer";
 

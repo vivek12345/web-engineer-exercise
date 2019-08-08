@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class SignIn extends Component {
+import { authenticate } from "../actions/sign-in";
+
+class SignIn extends Component {
   constructor(props) {
     super(props);
 
@@ -46,3 +50,23 @@ export default class SignIn extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, router) => {
+  const { error, requesting } = state.signIn;
+  const redirect = router.history.push;
+
+  return { error, requesting, redirect };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    authenticate: (email, password) => dispatch(authenticate(email, password))
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignIn)
+);
