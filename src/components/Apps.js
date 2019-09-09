@@ -46,6 +46,7 @@ const Apps = ({ error, requesting, items, fetchApps }) => {
       await utils.to(fetchApps());
     }
     fetchMyApps();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderCards = () => {

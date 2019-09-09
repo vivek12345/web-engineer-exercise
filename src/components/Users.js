@@ -46,6 +46,7 @@ const Users = ({ error, requesting, items, fetchUsers, appId }) => {
       );
     }
     fetchFirstPageUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appId, offset]);
 
   const handlePagination = async (limit, offset) => {
