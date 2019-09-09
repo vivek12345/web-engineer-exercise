@@ -83,8 +83,7 @@ While developing, you will probably rely mostly on `npm start`; however, there a
 |`npm <script>`                                |Description|
 |-----------------------------------------------|-----------|
 |`npm start`                                   |Starts node app at `localhost:3000` by default|
-|`npm lint-staged`                             |Runs prettier and eslint fixes|
-|`npm eslint:fix`                              |Runs all eslint fixes|
+|`npm run eslint:fix`                          |Runs all eslint fixes|
 |`npm test`                                    |Runs all e2e tests|
 ```
 
