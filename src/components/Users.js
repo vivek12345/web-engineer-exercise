@@ -46,7 +46,7 @@ const Users = ({ error, requesting, items, fetchUsers, appId }) => {
       );
     }
     fetchFirstPageUsers();
-  }, [appId, offset]);
+  }, [appId, fetchUsers, offset]);
 
   const handlePagination = async (limit, offset) => {
     setOffset(offset);
