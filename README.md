@@ -34,7 +34,7 @@
 - [x] Appropriate metadata for each route e.g. page title, page metadata
 
 **Features Missing**:
-1) e2e test is not passing even though the functionality is correct.
+1) One of the e2e test is not passing even though the functionality is correct.
 2) No type checking added
 3) Improve web accessibility further
 
