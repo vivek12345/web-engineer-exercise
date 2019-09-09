@@ -12,7 +12,7 @@
 <h4 align="center">Monzo web engineering task with React 16.9 and Redux</h4>
 
 
-- This repo holds the entire front end code base for Monzo web engineering tas.The code is written in React 16.9 and Redux.
+- This repo holds the entire front end code base for Monzo web engineering task. The code is written in React 16.9 and Redux.
 - This repo was webpack and other configs are inspired from CRA(CREATE-REACT-APP).
 - For styling we are using tailwind css.
 - Test cases are written in mocha and pupetter for e2e tests.
@@ -51,14 +51,12 @@ $ npm install # Install project dependencies (or `npm install`)
 ### For starting the react server
 
 ```bash
-# For development environment
-
 $ npm start # Build the client bundles and start the dev server
-
 ```
 
 
 While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
+```
 
 |`npm <script>`                                |Description|
 |-----------------------------------------------|-----------|
