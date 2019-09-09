@@ -1,168 +1,130 @@
-- [Building a developer portal](#building-a-developer-portal)
-  - [Missing features](#missing-features)
-  - [Minimum requirements](#minimum-requirements)
-  - [Running the app](#running-the-app)
-- [API](#api)
-  - [Authentication](#authentication)
-  - [Obtaining an access token](#obtaining-an-access-token)
-  - [Apps and their users](#apps-and-their-users)
-  - [Example calls and data model](#example-calls-and-data-model)
+<h1 align="center">
+  Monzo web engineering task
+  <br>
+</h1>
+<img src="./app.svg" />
+<p align="center">
+    <img src='https://forthebadge.com/images/badges/made-with-javascript.svg' />
+    <img src='https://forthebadge.com/images/badges/uses-css.svg' />
+    <img src='https://forthebadge.com/images/badges/validated-html5.svg' />
+    <img src='https://forthebadge.com/images/badges/uses-html.svg' />
+</p>
+<h4 align="center">Monzo web engineering task with React 16.9 and Redux</h4>
 
-# Building a developer portal
 
-Your task is to prioritise and resolve [the list of missing features](#missing-features) that are required to finish off the Developer portal application.
+- This repo holds the entire front end code base for Monzo web engineering tas.The code is written in React 16.9 and Redux.
+- This repo was webpack and other configs are inspired from CRA(CREATE-REACT-APP).
+- For styling we are using tailwind css.
+- Test cases are written in mocha and pupetter for e2e tests.
 
-The unfinished application has been built with the same technologies that we use at Monzo to build our internal tooling. We are using [React](https://reactjs.org/) to build our components and [Redux](https://redux.js.org/) for the state management. The code is bundled using [Webpack](https://webpack.js.org) and transformed using [Babel](https://babeljs.io/).
+## 📦 Table of Contents
 
-We will use the exercise as a basis to discuss some aspects of web frontend development in more detail once it has been submitted.
+1.  [Requirements](#requirements)
+2.  [Installation](#getting-started)
+3.  [Running the Project](#running-the-project)
+4.  [Project Structure](#project-structure)
+5.  [Routing](#routing)
+6.  [Development Tools](#development-tools)
+7.  [Building for Production](#building-for-production)
+    - [Deployment](#deployment)
 
-Please capture any features that you don’t have time to implement and / or any ways you would improve the app given more time.
+## 💼 Requirements
 
-## Missing features
+- node `^10.4.0`
+- yarn `^1.10.1` or npm `^6.1.0`
 
-- Redirecting logged out users to the sign in form when they try to navigate to one of the routes
-- Style up the application
-- Error messaging on the form when submitted with incorrect data
-- Paginate the list of users
-- Build the app editing functionality
-- Make sure all functionality is covered by an E2E test and those tests pass
-- Make the app more performant
-- Convert the components into re-usable components
-- Implement coding standards e.g. ESLint, Prettier
-- Add type safety to the application e.g. Flow / Typescript
-- Web accessibility best practices
-- Update any out-of-date packages
-- Appropriate metadata for each route e.g. page title, page metadata
+## 💾 Installation
 
-## Minimum requirements:
+After confirming that your environment meets the above [requirements](#requirements), you can start this project by following the steps mentioned below:-
 
-- The user can log into the portal using email and password
-- The user should go through the authentication process again when the token has expired
-- The user can list and update their “apps”
-- The user can paginate through a list of “users” associated with an “app”
-
-# Running the app
-
-**Clone the repository**
-
-`git clone {REPOSITORY}`
-
-**Install the required NPM packages**:
-
-`npm install`
-
-**Start the application**:
-
-`npm start`
-
-**Test the application**:
-
-You will need to start the application first, then run `npm test` in a new terminal tab.
-
-# API
-
-We've put up a mock API server at https://guarded-thicket-22918.herokuapp.com/.
-
-## Authentication
-
-All API requests (except for logins) are authenticated by passing an access token in via the `"Authorization"` HTTP header. If the token is missing, invalid or expired the API returns `401 Unauthorized`.
-
-Access tokens expire after a default time of 30m. You can override this during login.
-
-You can check whether or not an access token is valid and not expired by hitting `GET /` with the `Authorization` header set.
-
-## Obtaining an access token
-You obtain an access token by making an `application/JSON` POST request to `/login` with the following properties in the body:
-
-- `email`: You can put whatever you want here. Each email gets its own little database of mock data.
-- `password`: If the password is `hunter2`, the login will succeed. Otherwise it will fail with status 401.
-- `expiry`: Optionally, you can pass in an expiration timespan in rauchg/ms format (e.g. `60s`, `10h`, etc). This is useful for testing your re-authentication code.
-
-For example:
-
-```
-# Obtain an access token
-curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com","password":"hunter2"}' https://guarded-thicket-22918.herokuapp.com/login
-# Status: 200
-# {
-#   "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vbmRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNDU0NTMzMDc4LCJleH# AiOjE0NTQ1MzQ4Nzh9.9nnNyJaR-oZeOjlGFUrimSuLzRUJ3kfzuxbQwTuODBg"
-# }
-
-# Test your access token
-curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vbmRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNDU0NTMzMDc4LCJleHAiOjE0NTQ1MzQ4Nzh9.9nnNyJaR-oZeOjlGFUrimSuLzRUJ3kfzuxbQwTuODBg" https://guarded-thicket-22918.herokuapp.com/
-# Status: 200
-# {
-#   "message": "The API is alive and your access token is valid :)",
-#   "token": {
-#     "email": "mondo@example.com",
-#     "iat": 1454533078,
-#     "exp": 1454534878
-#   }
-# }
-
-# Login failure
-curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com","password":"not hunter2"}' https://guarded-thicket-22918.herokuapp.com/login
-# Status: 401
-# {
-#   "error": "Cannot log in with the given email and password."
-# }
-
-# Get a short-lived access token to test re-authentication
-curl -H "Content-Type: application/json" -X POST -d '{"email":"mondo@example.com","password":"hunter2","expiry":"10s"}' https://guarded-thicket-22918.herokuapp.com/login
+```bash
+$ git clone https://github.com/vivek12345/web-engineer-exercise
+$ cd web-engineer-exercise
 ```
 
-## Apps and their users
+When that's done, install the project dependencies. It is recommended that you use npm for deterministic. `npm install` will suffice.
 
-The developer portal deals with two domain models: `apps` and their `users`. The API has three endpoints:
-
-```
-GET /apps returns a list of all apps. This list doesn't include the apps' users.
-PUT /apps/$appId updates an app and returns the updated app. You can change the name and logo properties.
-GET /apps/$appId/users?limit=25&offset=0 returns a list of users for a given app. This list can be quite long so you'll need to implement paging using the limit and offset parameters. The API doesn't support returning more than 25 results at once.
+```bash
+$ npm install # Install project dependencies (or `npm install`)
 ```
 
-## Example calls and data model:
+### For starting the react server
+
+```bash
+# For development environment
+
+$ npm start # Build the client bundles and start the dev server
 
 ```
-# List all apps (after obtaining an access token as described above)
-curl -H "Authorization: $token" https://guarded-thicket-22918.herokuapp.com/apps
-# {
-#   "apps": [
-#     {
-#       "id": "ebdb9723-39ba-4157-9d36-aa483581aa13",
-#       "name": "Intelligent Steel Car",
-#       "created": "2016-01-25T03:57:53.873Z",
-#       "logo": "http://lorempixel.com/400/400/animals"
-#     },
-#     // and so on...
-#   ]
-# }
 
-# Update an app
-curl -H "Content-Type: application/json" -H "Authorization: $token" -X PUT -d '{"name":"New Name"}' https://guarded-thicket-22918.herokuapp.com/apps/ebdb9723-39ba-4157-9d36-aa483581aa13
-# {
-#   "app": {
-#     "id": "ebdb9723-39ba-4157-9d36-aa483581aa13",
-#     "name": "New Name",
-#     "created": "2016-01-25T03:57:53.873Z",
-#     "logo": "http://lorempixel.com/400/400/animals"
-#   }
-# }
 
-# List users of an app (first page of 25 users)
-curl -H "Authorization: $token" https://guarded-thicket-22918.herokuapp.com/apps/ebdb9723-39ba-4157-9d36-aa483581aa13/users
-# {
-#   "users": [
-#     {
-#       "id": "6b09a204-0653-4303-9370-222b06c478a8",
-#       "name": "Madeline Runte",
-#       "email": "Viviane.Beatty58@yahoo.com",
-#       "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/chrisstumph/128.jpg"
-#     }
-#     // and so on...
-#   ]
-# }
+While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
 
-# List users of an app (second page of 25 users)
-curl -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vbmRvQGV4YW1wbGUuY29tIiwiaWF0IjoxNDU0NTM1MDg4LCJleHAiOjE0NTQ1MzY4ODh9.7ehzJgS_OojT37j076I05l1ZNKc62AKOpL-aeqR0GkM" https://guarded-thicket-22918.herokuapp.com/apps/ebdb9723-39ba-4157-9d36-aa483581aa13/users?offset=25
+|`npm <script>`                                |Description|
+|-----------------------------------------------|-----------|
+|`npm start`                                   |Starts node app at `localhost:3000` by default|
+|`npm lint-staged`                             |Runs prettier and eslint fixes|
+|`npm eslint:fix`                              |Runs all eslint fixes|
+|`npm test`                                    |Runs all e2e tests|
+```
+
+## ✏️ Project Structure
+
+The project structure using CRA directory structure where folders are grouped into containers and components and since we are using redux, we do have actions, reducers,, store and helpers.
+This structure is only meant to serve as a guide, it is by no means prescriptive. That said, it aims to represent generally accepted guidelines and patterns for building scalable applications.
+To understand what goes inside components and what inside containers, please check out this [component-state-vs-redux-store](https://medium.com/netscape/component-state-vs-redux-store-1eb0c929277) by [Vivek Nayyar](twitter.com/viveknayyar09).
+
+```
+├── build                                       # All production ready files with minified JS, html and css files
+├── config                                      # All CRA related config goes here including paths, environment variables and │jest config goes here
+├── public                                      # Static public assets used while in dev mode
+├── scripts                                     # All webpack related code
+│   ├── build.js                                # Script for making production bundle
+│   ├── start.js                                # Script for development mode
+│   ├── test.js                                 # Script for test mode
+├── src                                         # Client Application source code
+│   ├── helpers                                 # All api helpers, utils, local storage, analytics and config helpers go inside this folder
+│   ├── components                              # Global Reusable Components
+│   │   ├── ComponentName                       # Component Name Folder and every component will have a index.js and css file
+│   │   │   ├── index.js                        # Main file which exports the component
+│   │   │   ├── ComponentName.js                # Main component code
+│   ├── containers                               # Top level pages container
+│   │   ├── ContainerName                        # Pages Folder and every page will have a index.js and css file
+│   │   │   ├── index.js                        # Main file which exports the page
+│   │   │   ├── ContainerName.js                # Main page/container code
+│   ├── assets                                  # Any images, fonts and icons which need to be cache bursted go here
+│   ├── index.js                                # Application bootstrap and rendering
+│   ├── constants                               # Folder for constants file
+│   ├── Routes.js                               # All application client side routes using react-router
+├── env                                         # All environment variables to be configured from here
+│   ├── properties.sample.env                   # Sample file for setting up environment vars
+├── .babelrc                                    # Babel file for es6 and react code transpilation
+├── .gitignore                                  # The name says it all
+├── .eslintrc.js                                # This file maintains all end points of the back end routes
+├── .prettierrc                                 # Prettier config
+├── package.json                                # All npm dependencies can be found here
+├── README.md                                   # Readme file for the whole app
+├── yarn.lock                                   # Yarn lock file for locking the dependency versions
+```
+
+## 🚀 Routing
+
+We use `react-router` [route definitions](https://github.com/ReactTraining/react-router)
+See the [project structure](#project-structure) section for more information.
+
+## ⚙️ Development Tools
+
+### Prettier
+
+- We use `prettier` for code formatting.Here is the link to downlod the same.[Prettier](https://www.npmjs.com/package/prettier)
+
+- Make sure you are using vscode and your vscode user_settings has the following code:-
+
+```bash
+{
+    "editor.fontSize": 12,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "prettier.eslintIntegration": true,
+}
 ```

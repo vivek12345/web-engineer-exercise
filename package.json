@@ -7,9 +7,20 @@
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "test": "mocha --recursive --timeout 40000",
     "build": "node scripts/build.js",
-    "start": "npm run build:style && node scripts/start.js"
+    "start": "npm run build:style && node scripts/start.js",
+    "eslint:fix": "eslint --ignore-path .gitignore --fix"
   },
-  "author": "",
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "npm run eslint:fix",
+      "git add"
+    ],
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
+  },
+  "author": "Vivek Nayyar",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -34,6 +45,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "mocha": "^5.2.0",
     "postcss-loader": "^3.0.0",
+    "prettier": "^1.18.2",
     "puppeteer": "^1.18.0",
     "style-loader": "^1.0.0",
     "tailwindcss": "^1.1.2",
