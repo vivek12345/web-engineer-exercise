@@ -46,7 +46,8 @@ const Apps = ({ error, requesting, items, fetchApps }) => {
       await utils.to(fetchApps());
     }
     fetchMyApps();
-  }, [fetchApps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderCards = () => {
     return items.map(({ id, name, logo }) => {
