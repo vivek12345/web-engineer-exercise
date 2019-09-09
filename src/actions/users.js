@@ -1,36 +1,50 @@
-import { getAccessToken } from './sign-in';
+import { utils } from '../helpers';
 
-export const USERS_REQUEST = 'USERS_REQUEST';
-export const USERS_SUCCESS = 'USERS_SUCCESS';
-export const USERS_ERROR = 'USERS_ERROR';
+import {
+  USERS_REQUEST,
+  USERS_SUCCESS,
+  USERS_ERROR,
+  RESET_USER_STATE
+} from '../types';
+import { BACKEND_URL } from '../constants';
 
 function usersRequesting() {
-    return { type: USERS_REQUEST };
+  return { type: USERS_REQUEST };
 }
 
 function usersSuccess(payload) {
-    return { type: USERS_SUCCESS, payload };
+  return { type: USERS_SUCCESS, payload };
 }
 
 function usersError() {
-    return { type: USERS_ERROR };
+  return { type: USERS_ERROR };
 }
 
-export function fetchUsers(appId) {
-    return async function (dispatch) {    
-        dispatch(usersRequesting());
+function resetUserState() {
+  return { type: RESET_USER_STATE };
+}
 
-        const response = await fetch(`https://guarded-thicket-22918.herokuapp.com/apps/${appId}/users`, {
-            headers: {
-                'Authorization': getAccessToken(),
-                'Content-Type': 'application/json'
-            }
-        });
+export function fetchUsers(appId, params) {
+  return async function(dispatch, getState, { api }) {
+    dispatch(resetUserState());
+    dispatch(usersRequesting());
 
-        if (!response.ok) return dispatch(usersError());
+    let url = new URL(`${BACKEND_URL}/apps/${appId}/users`);
 
-        const { users } = await response.json();
+    Object.keys(params).forEach(key =>
+      url.searchParams.append(key, params[key])
+    );
 
-        return dispatch(usersSuccess(users));
+    const [err, resp] = await utils.to(api.request(url, { dispatch }));
+    if (err) {
+      return Promise.reject(err);
     }
+    if (resp) {
+      if (!resp.ok) return dispatch(usersError());
+
+      const { users } = await resp.json();
+
+      return dispatch(usersSuccess(users));
+    }
+  };
 }
