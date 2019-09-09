@@ -46,7 +46,7 @@ const Apps = ({ error, requesting, items, fetchApps }) => {
       await utils.to(fetchApps());
     }
     fetchMyApps();
-  }, []);
+  }, [fetchApps]);
 
   const renderCards = () => {
     return items.map(({ id, name, logo }) => {
