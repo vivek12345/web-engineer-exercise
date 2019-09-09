@@ -1,0 +1,5 @@
+export const APPS_REQUEST = 'APPS_REQUEST';
+export const APPS_SUCCESS = 'APPS_SUCCESS';
+export const APPS_ERROR = 'APPS_ERROR';
+export const RESET_APPS_STATE = 'RESET_APPS_STATE';
+export const UPDATE_APP_ERROR = 'UPDATE_APP_ERROR';

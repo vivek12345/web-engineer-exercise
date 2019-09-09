@@ -1,0 +1,1 @@
+export const TOKEN_KEY = '__MONZO_WEB_EXERCISE_TOKEN__';
