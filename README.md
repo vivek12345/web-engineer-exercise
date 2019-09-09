@@ -2,7 +2,7 @@
   Monzo web engineering task
   <br>
 </h1>
-<img src="./app.svg" />
+<img src="./app.png" />
 <p align="center">
     <img src='https://forthebadge.com/images/badges/made-with-javascript.svg' />
     <img src='https://forthebadge.com/images/badges/uses-css.svg' />
@@ -16,6 +16,28 @@
 - This repo was webpack and other configs are inspired from CRA(CREATE-REACT-APP).
 - For styling we are using tailwind css.
 - Test cases are written in mocha and pupetter for e2e tests.
+
+**Features Implemented**:
+<!-- add "N/A" to the end of each line that's irrelevant to your changes -->
+<!-- to check an item, place an "x" in the box like so: "- [x] Documentation" -->
+- [x] Redirecting logged out users to the sign in form when they try to navigate to one of the routes
+- [x] Style up the application
+- [x] Error messaging on the form when submitted with incorrect data
+- [x] Paginate the list of users
+- [x] Build the app editing functionality
+- [x] Make sure all functionality is covered by an E2E test and those tests pass(all pass except one)
+- [x] Make the app more performant
+- [x] Convert the components into re-usable components
+- [x] Implement coding standards e.g. ESLint, Prettier
+- [x] Web accessibility best practices(partially added)
+- [x] Update any out-of-date packages
+- [x] Appropriate metadata for each route e.g. page title, page metadata
+
+**Features Missing**:
+1) e2e test is not passing even though the functionality is correct.
+2) No type checking added
+3) Improve web accessibility further
+
 
 ## 📦 Table of Contents
 
